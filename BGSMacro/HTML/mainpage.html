@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <title>Macro Manager</title>
+</head>
+<body>
+  <div class="tab-menu">
+    <button class="tab active" onclick="openTab('tab1')">Home</button>
+    <button class="tab" onclick="openTab('tab2')">Blow Bubbles</button>
+    <button class="tab" onclick="openTab('tab3')">Hatch Eggs</button>
+    <button class="tab" onclick="openTab('tab4')">Collect Coins</button>
+    <button class="tab" onclick="openTab('tab5')">Collect Gems</button>
+    <button class="tab" onclick="openTab('tab6')">Random</button>
+    <button class="tab" onclick="openTab('tab7')">Random 2</button>
+    <button class="tab" onclick="openTab('tab8')">Random 3</button>
+    <button class="tab" onclick="openTab('tab9')">Random 4</button>
+    <button class="tab" onclick="openTab('tab10')">Macro</button>
+  </div>
+
+  <div id="tab1" class="tab-content active">
+    <h1>Welcome to BGSNoob Macro</h1>
+    <p>Developed by <strong>Puhfy</strong> and <strong>YouAreHired</strong></p>
+    <p>Enable and customize macros by clicking on their respective tab. Order the execution list in the macros tab.</p>
+  </div>
+
+  <div id="tab2" class="tab-content">
+    <label class="macro-checkbox">
+      <input type="checkbox" class="macro-toggle" data-name="Blow Bubbles">
+      Blow Bubbles
+    </label>
+  
+    <div class="iteration-group">
+      <label for="bubblesSlider">Iterations</label>
+      <input type="range" min="1" max="10" value="1" class="macro-slider" id="bubblesSlider" data-target="bubblesInput">
+  
+      <div class="iteration-controls">
+        <label for="bubblesInput">Custom Iterations</label>
+        <input type="number" min="1" value="1" id="bubblesInput" class="macro-input" data-slider="bubblesSlider">
+      </div>
+    </div>
+  </div>
+  
+  
+  <div id="tab3" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Hatch Eggs">Hatch Eggs</div>
+  <div id="tab4" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Collect Coins">Collect Coins</div>
+  <div id="tab5" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Collect Gems">Collect Gems</div>
+  <div id="tab6" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Random">Random</div>
+  <div id="tab7" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Random 2">Random 2</div>
+  <div id="tab8" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Random 3">Random 3</div>
+  <div id="tab9" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Random 4">Random 4</div>
+
+  <div id="tab10" class="tab-content">
+    <h2>Macro Execution Order</h2>
+    <p></p>
+
+    <div class="macro-list" id="enabledMacros"></div>
+
+    <ol class="sortable" id="macroOrderList"></ol>
+  </div>
+
+  <div class="footer">
+    <p>Developed by Puhfy & YouAreHired</p>
+  </div>
+
+  <script src="script.js">
+  </script>
+</body>
+</html>
