@@ -1,0 +1,3 @@
+EggHatcher(egg, time) {
+ 
+    }
