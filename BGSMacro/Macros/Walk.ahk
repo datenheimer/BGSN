@@ -2,7 +2,9 @@ Walker(steps, d) {
     while i < steps
     {
         i++
-        Send, {w}
+        Send "{" d " down}"
+        sleep 10
+        Send "{" d " up}"
         }
     }
 ; Move mouse and click
