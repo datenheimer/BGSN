@@ -1,39 +1,30 @@
 class Bubblegum {
-    ; Define the variables
-    toggle := false
-    count := 0
-    isRunning := false  ; Flag to track if macro is executing
-
-    ; Constructor to initialize state
-    __New(toggle := false, count := 0) {
-        this.toggle := toggle
-        this.count := count
+    __New() {
+        this.count := 0
+        this.state := true
     }
 
-    ; Method to process the macro
-    processMacro() {
-        ; Check if another macro is currently running
-        if (this.isRunning) {
-            MsgBox("Macro is already running, please wait.")
+    run() {
+        if !this.state
             return
-        }
-
-        ; Set the flag to indicate that macro is running
-        this.isRunning := true
-        ; Execute macro logic based on toggle and count
-        MsgBox("Processing Bubblegum Macro..." "`nToggle: " this.toggle "`nCount: " this.count)
-
-        ; For example, we could delay the operation
-        Sleep(2000) ; Simulate a 2 second macro operation
-
-        ; After the macro is finished
-        MsgBox("Bubblegum Macro finished.")
-        this.isRunning := false  ; Reset the flag
+        this.count += 1
+        ToolTip "Bubblegum: " this.count
+        Sleep 500
+        ToolTip
     }
 
-    ; Method to set toggle and count values dynamically
-    updateValues(toggle, count) {
-        this.toggle := toggle
-        this.count := count
+    SetConfig(params) {
+        if params.Has("toggle")
+            this.state := params["toggle"]
+        if params.Has("count")
+            this.count := params["count"]
+    }
+
+    getState() {
+        return this.state
+    }
+
+    toggleState() {
+        this.state := !this.state
     }
 }

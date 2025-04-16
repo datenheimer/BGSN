@@ -12,7 +12,7 @@ function openTab(tabId) {
     const message = {
         action: "bubblegum", 
         params: {
-            toggle: "on",  
+            toggle: true,  
             count: 3  
         }
     };
