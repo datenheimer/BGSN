@@ -68,6 +68,25 @@
   
   
   <div id="tab3" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Hatch Eggs">Hatch Eggs</div>
+  <label for="tab3">Choose an egg:</label>
+  <select id="tab3"></select>
+
+  <script>
+    // Your list of eggs
+    //const eggIndex = ["Scrambled", "Boiled", "Fried", "Poached", "Omelette"];
+
+    //const dropdown = document.getElementById("eggDropdown");
+
+    // Populate the dropdown
+    eggIndex.forEach((egg, index) => {
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = egg;
+      dropdown.appendChild(option);
+    });
+  </script>
+</body>
+</html>
   <div id="tab4" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Collect Coins">Collect Coins</div>
   <div id="tab5" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Collect Gems">Collect Gems</div>
   <div id="tab6" class="tab-content"><input type="checkbox" class="macro-toggle" data-name="Random">Random</div>
