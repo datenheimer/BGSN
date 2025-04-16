@@ -8,6 +8,7 @@ class Bubblegum {
         if !this.state
             return
         this.count += 1
+        Bubbler()
         ToolTip "Bubblegum: " this.count
         Sleep 500
         ToolTip
