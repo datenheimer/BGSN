@@ -5,19 +5,19 @@ function openTab(tabId) {
     event.target.classList.add('active');
     if (tabId === 'tab10') updateMacroList();
 
-    // window.chrome.webview.addEventListener("message", function(event) {
-    //     alert("Received " + event.data);
-    // });
+    window.chrome.webview.addEventListener("message", function(event) {
+        alert("Received " + event.data);
+    });
 
-    // const message = {
-    //     action: "runMacro", 
-    //     params: {
-    //         toggle: "on",  
-    //         count: 1  
-    //     }
-    // };
+    const message = {
+        action: "bubblegum", 
+        params: {
+            toggle: "on",  
+            count: 3  
+        }
+    };
 
-    // window.chrome.webview.postMessage(JSON.stringify(message));
+    window.chrome.webview.postMessage(JSON.stringify(message));
 }
 
 
