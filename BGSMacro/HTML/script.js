@@ -155,3 +155,6 @@ function openTab(tabId) {
     document.getElementById(tabId).classList.add('active');
     event.target.classList.add('active');
 }
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
