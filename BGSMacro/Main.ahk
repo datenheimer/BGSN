@@ -1,7 +1,11 @@
 ﻿#Requires AutoHotkey v2.0
-#Include ./WebView2/WebView2.ahk
-#Include ./WebView2/_JXON.ahk
-#Include ./Modules/bubble.ahk
+#Include <WebView2/WebView2>
+#Include <JSON>
+#Include <_JXON>
+
+importModules()
+#Include ./loader.ahk
+
 
 IsString(value) {
     return (Type(value) == "string")
@@ -18,25 +22,65 @@ wv := wvc.CoreWebView2
 global MacroMap := Map()
 global manager := MacroManager()
 
-b := Bubblegum()
-MacroMap["bubblegum"] := b
-manager.addMacro(b)
 
+for macroFile in GetModuleClassNames(A_ScriptDir "\Modules") {
+    instance := %macroFile%()
+    MacroMap[instance.getName()] := instance
+    manager.addMacro(instance)
+}
+
+
+wv.add_NavigationCompleted(WebView2.Handler(NavigationCompletedHandler))
 wv.add_WebMessageReceived(WebView2.Handler(WebMessageReceivedEventHandler))
-wv.Navigate("file:///" A_ScriptDir "\HTML\mainpage.html") 
+
+wv.Navigate("file:///" A_ScriptDir "\HTML\mainpage.html")
+
+NavigationCompletedHandler(handler, sender, args) {
+    for key, macro in MacroMap {
+        customParams := macro.getCustomParams()
+        AddMacroToWebView(macro, customParams)
+    }
+}
 
 WebMessageReceivedEventHandler(handler, ICoreWebView2, WebMessageReceivedEventArgs) {
     args := WebView2.WebMessageReceivedEventArgs(WebMessageReceivedEventArgs)
-    msg := args.TryGetWebMessageAsString() 
+    msg := args.TryGetWebMessageAsString()
     jsonObj := jxon_load(&msg)
     action := jsonObj.Get("action")
     params := jsonObj.Get("params")
+    if action == "changeParams" {
+        macro := MacroMap[params.Get("name")]
+        if (IsObject(macro)) {
+            if params.Has("toggle")
+                macro.setState(params.Get("toggle"))
 
-    if MacroMap.Has(action) {
-        macro := MacroMap[action]
-        if HasMethod(macro, "SetConfig")
-            macro.SetConfig(params)
+            if params.Has("customParams") {
+                customParams := params.Get("customParams")
+                for param in customParams {
+                    if param.Has("name") && param.Has("value")
+                        macro.setCustomParam(param["name"], param["value"])
+                }
+            }
+            AddMacroToWebView(macro, macro.getCustomParams())
+        }
+
     }
+}
+
+
+AddMacroToWebView(macro, params) {
+    message := {
+        action: "addMacro",
+        params: {
+            name: macro.GetName(),       
+            toggle: macro.getState(),    
+            count: macro.getCount(),   
+            customParams: params  
+        }
+    }
+
+    jsonMessage :=JSON.stringify(message) 
+    wv.PostWebMessageAsString(jsonMessage) 
 }
 
 manager.runLoop()
@@ -62,4 +106,28 @@ class MacroManager {
             }
         }
     }
+}
+
+importModules() {
+    modulesDir := A_ScriptDir "\Modules"
+    loaderFile := A_ScriptDir "\loader.ahk"
+
+    loaderHandle := FileOpen(loaderFile, "w")
+    loaderHandle.WriteLine("; DO NOT TOUCH")
+    Loop Files, modulesDir "\*.ahk"
+    {
+        relativePath := ".\Modules\" A_LoopFileName
+        loaderHandle.WriteLine("#Include " relativePath)
+    }
+
+    loaderHandle.Close()
+}
+
+GetModuleClassNames(dirPath) {
+    names := []
+    Loop Files, dirPath "\*.ahk" {
+        className := RegExReplace(A_LoopFileName, "\.ahk$")
+        names.Push(className)
+    }
+    return names
 }
