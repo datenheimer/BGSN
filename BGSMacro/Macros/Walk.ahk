@@ -1,12 +1,14 @@
 Walker(steps, d) {
+    i := 0
     while i < steps
     {
-        i++
         Send "{" d " down}"
-        sleep 10
+        sleep 100
         Send "{" d " up}"
+        i++
         }
     }
 ; Move mouse and click
 ; MouseMove, 100, 100
 ; Click
+
