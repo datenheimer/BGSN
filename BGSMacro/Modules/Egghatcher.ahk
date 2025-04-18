@@ -1,7 +1,7 @@
 #Include ../Macros/Bubbler.ahk
-class Bubblegum {
+class Egghatcher {
     __New() {
-        this.name := "Blow Bubbles"
+        this.name := "Hatch Eggs"
         this.count := 0     
         this.state := false     
         this.customParams := Map(
