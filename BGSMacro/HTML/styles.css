@@ -1,29 +1,32 @@
 @import url(https://db.onlinewebfonts.com/c/07899d51f46805ce07de796bfd8c3831?family=ArdelaEdgeX01-ExtraBold);
+
 html,
 body {
-
-    height: 100%;
     margin: 0;
     padding: 0;
-    background: transparent;
+    height: 100%;
+    background: purple;
     color: #e0e0e0;
     font-family: "ArdelaEdgeX01-ExtraBold";
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
 }
 
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
 
 .tab-menu {
     display: flex;
-    flex-wrap: nowrap;         
+    flex-wrap: nowrap;
     background: #222;
     padding: 10px 15px;
     border-bottom: 1px solid #9b436f;
-    overflow-x: auto;       
-    overflow-y: hidden;       
-    max-height: calc(2 * 40px + 20px);
+    overflow-x: auto;
+    max-height: 60px;
+    flex-shrink: 0;
 }
-
 
 .tab {
     background: #2a2a2a;
@@ -32,6 +35,7 @@ body {
     margin-right: 8px;
     cursor: pointer;
     border-radius: 4px;
+    white-space: nowrap;
     transition: background 0.2s ease;
 }
 
@@ -41,11 +45,16 @@ body {
     color: #fff;
 }
 
+.page-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    background: #1e1e1e;
+}
+
 .tab-content {
     display: none;
     padding: 20px 30px;
-    flex: 1;
-    background: #1e1e1e;
+    box-sizing: border-box;
 }
 
 .tab-content.active {
@@ -62,68 +71,174 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.footer-links {
-    display: flex;
-    flex-direction: row;
+    height: 60px;
+    flex-shrink: 0;
 }
 
 .footer img {
+    height: 40px;
     object-fit: contain;
-    size: 100px;
 }
 
-
-.macro-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.macro-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+ul,
+ol {
+    padding-left: 20px;
+}
+
+pre {
+    background: #2a2a2a;
+    padding: 12px;
+    border: 1px solid #9b436f;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+code {
+    font-family: monospace;
+    color: #ff9bc9;
+    white-space: pre;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+th,
+td {
+    border: 1px solid #9b436f;
+    padding: 8px;
+    text-align: center;
+}
+
+h1,
+h2,
+h3 {
+    color: #ffb3d1;
+    margin-top: 25px;
+}
+
+a {
+    color: #f880b3;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* --- Scrollbar Styling --- */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1e1e1e;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #9b436f;
+    border-radius: 10px;
+    border: 3px solid #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #b35583;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #9b436f #1e1e1e;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: #2a2a2a;
+    border: 2px solid #9b436f;
+    padding: 6px;
+    border-radius: 4px;
+    width: 36px;
+    height: 36px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+input[type="checkbox"]::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 12.5px;
+    width: 8px;
+    height: 16px;
+    border: solid #9b436f;
+    border-width: 0 2px 2px 0;
+    opacity: 0;
+    transform: rotate(45deg);
+    transition: opacity 0.2s;
+}
+
+input[type="checkbox"]:checked::after {
+    opacity: 1;
+    border-color: #9b436f;
+}
+
+input[type="checkbox"]:hover {
+    border-color: #888;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #9b436f;
+    height: 6px;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #2a2a2a;
+    height: 6px;
+    border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background-color: #9b436f;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+}
+
+input[type="number"].macro-input {
+    background-color: #2a2a2a;
+    border: 1px solid #9b436f;
+    color: #eee;
+    padding: 6px 10px;
+    border-radius: 4px;
+    width: 80px;
     font-size: 0.95em;
 }
 
-.sortable {
-    list-style: decimal;
-    padding-left: 20px;
-    margin-top: 15px;
-}
-
-.sortable li {
-    background: #2b2b2b;
-    color: #ddd;
-    margin: 6px 0;
-    padding: 10px 14px;
-    cursor: grab;
-    border-radius: 5px;
-    border: 1px solid #9b436f;
-    transition: background 0.2s ease, transform 0.1s ease;
-}
-
-.sortable li.dragging {
-    opacity: 0.6;
-    transform: scale(0.98);
-    background: #1c1c1c;
-}
-
-input[type="text"],
-textarea {
-    background: #2a2a2a;
-    border: 1px solid #9b436f;
-    color: #eee;
-    padding: 8px 10px;
-    border-radius: 4px;
-    width: 100%;
-}
-
-input::placeholder {
-    color: #888;
+input[type="number"].macro-input:focus {
+    outline: none;
+    border-color: #9b436f;
 }
 
 button {
@@ -142,90 +257,81 @@ button:hover {
     color: #fff;
 }
 
-input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    background-color: #2a2a2a;
-    border: 2px solid #9b436f;
-    padding: 6px;
+.param-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+@media (min-width: 600px) {
+    .param-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+
+.param-tile {
+    border-top: 1px solid #9b436f;
+    background: #222;
+    padding: 0.75rem;
     border-radius: 4px;
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-    width: 36px;
-    height: 36px;
-    vertical-align: middle;
-    transition: background 0.2s, border-color 0.2s;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
-input[type="checkbox"]::after {
-    content: "";
-    position: absolute;
-    top: 4px;
-    left: 12.5px;
-    width: 8px;
-    height: 16px;
-    border: solid #9b436f;
-    border-width: 0 2px 2px 0;
-    opacity: 0;
-    transform: rotate(45deg);
-    transition: opacity 0.2s;
+.param-tile label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
 }
 
-input[type="checkbox"]:checked {
-    background-color: #2a2a2a;
-    border-color: #9b436f;
-}
-
-input[type="checkbox"]:checked::after {
-    opacity: 1;
-    border-color: #9b436f;;
-}
-
-input[type="checkbox"]:hover {
-    border-color: #888;
-}
-
-.iteration-group {
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-width: 300px;
-}
-
-.iteration-group label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.95em;
-    color: #ccc;
-}
-
-input[type="range"].macro-slider {
-    width: 100%;
-    background-color: #2a2a2a;
-    accent-color: #9b436f;
-    height: 6px;
-    border-radius: 3px;
-}
-
-input[type="number"].macro-input {
-    background-color: #2a2a2a;
-    border: 1px solid #9b436f;
-    color: #eee;
-    padding: 6px 10px;
-    border-radius: 4px;
-    width: 80px;
-    font-size: 0.95em;
-}
-
-input[type="number"].macro-input:focus {
-    outline: none;
-    border-color: #9b436f;
-}
-
-.iteration-controls {
+.toggle-wrapper {
+    margin-top: 1rem;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0.5rem;
+}
+
+select {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: none;
+    border-top: 1px solid #9b436f;
+    padding: 6px 40px 6px 10px;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 1em;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+select::after {
+    content: none;
+}
+
+select:focus,
+select:hover {
+    background-color: #333;
+    border-color: #9b436f;
+    outline: none;
+}
+
+option {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+}
+
+select {
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5'%3E%3Cpath fill='%23e0e0e0' d='M0 0l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 5px;
 }

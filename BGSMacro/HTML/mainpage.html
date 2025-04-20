@@ -1,23 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
-    <title>Macro Manager</title>
-</head>
-<body>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <title>Macro Manager</title>
+</head>
+
+<body>
+  <div class="layout">
     <div class="tab-menu">
       <button class="tab active" onclick="openTab('tab1')">Home</button>
     </div>
 
+    <div id="page-wrapper" class="page-wrapper">
 
 
-    <div id="tab1" class="tab-content active">
-        <h1>Welcome to BGSNoob Macro</h1>
-        <p>Developed by <strong>PUHFY</strong> and <strong>youarehired</strong></p>
-        <p>Enable and customize macros by clicking on their respective tab. Order the execution list in the macros tab.</p>
+
+      <div id="tab1" class="tab-content active">
+        <h1>BGSNoob</h1>
+
+        <p><strong>BGSNoob</strong> is a modular, dynamic AutoHotkey (AHK v2) macro engine using WebView2 as a frontend
+          for
+          the popular game <em>Bubble Gum Simulator Infinity</em>.</p>
+
+        <hr>
+
+        <img src="./assets/ui-screenshot.png" alt="BGSNoob Preview">
+
+        <h2>Features</h2>
+        <ul>
+          <li>Dynamic Macro Loading</li>
+          <li>Plug-and-play Module System</li>
+        </ul>
+
+        <hr>
+
+        <h2>Installation</h2>
+        <ol>
+          <li><strong>Download AutoHotkey v2:</strong> <a
+              href="https://www.autohotkey.com/download/">https://www.autohotkey.com/download/</a></li>
+          <li><strong>Clone the Repo:</strong>
+            <pre><code>git clone https://github.com/your-username/BGSMacro.git
+    cd BGSMacro</code></pre>
+          </li>
+          <li><strong>Run the App:</strong><br>
+            Just double-click <code>Main.ahk</code>
+          </li>
+        </ol>
+
+        <hr>
+
+        <h2>Creating Your Own Modules</h2>
+        <p>Creating a new macro module is easy. Just drop a new <code>.ahk</code> file in the <code>Modules</code>
+          folder,
+          and it will be auto-loaded at startup.</p>
+
+        <h3>Example: <code>MyMacro.ahk</code></h3>
+
+        <pre><code>class MyMacro {
+        __New() {
+            this.name := "MyMacro"
+            this.count := 0
+            this.state := true
+            this.customParams := Map(
+                "slider", Map("type", "range", "min", 10, "max", 500, "value", 100),
+                "boolean", Map("type", "boolean", "value", true)
+            )
+        }
+    
+        run() {
+            if !this.state
+                return
+            
+            ; Do your macro logic here
+            Sleep this.customParams["slider"]["value"]
+        }
+    
+        getName() => this.name
+        getState() => this.state
+        setState(state) => this.state := state
+        getCount() => this.count
+        getCustomParams() => this.customParams
+        setCustomParam(name, val) => this.customParams[name]["value"] := val
+    }</code></pre>
+
+        <p><strong>Your module will appear automatically in the UI!</strong><br>
+          <em>Important: The name of the file must be the same as your class.</em>
+        </p>
+
+        <hr>
+
+        <h2>Screenshots</h2>
+        <table>
+          <tr>
+            <th>UI Overview</th>
+            <th>Custom Param Sliders</th>
+          </tr>
+          <tr>
+            <td><img src="./assets/ui-1.png" alt="Main UI"></td>
+            <td><img src="./assets/ui-slider.png" alt="Slider Example"></td>
+          </tr>
+        </table>
+
+        <hr>
+
+        <h2>Community</h2>
+        <h3>Join Discord</h3>
+        <p>Post modules, request features, or just hang out.<br>
+          <a href="https://discord.gg/7qjnbrc2MU">https://discord.gg/7qjnbrc2MU</a>
+        </p>
+
+        <hr>
+
+        <h2>Stack</h2>
+        <ul>
+          <li><a href="https://www.autohotkey.com/">AutoHotkey v2</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/microsoft-edge/webview2/">WebView2</a></li>
+          <li>HTML, CSS, JavaScript</li>
+          <li>JSON / JXON for data exchange</li>
+        </ul>
+
+        <hr>
+
+        <h2>License</h2>
+        <p>GNU General Public License v2 — free to use, modify, and distribute under the terms of the GPLv2.</p>
+      </div>
     </div>
 
 
@@ -25,9 +134,10 @@
       <p>Developed by Puhfy & YouAreHired</p>
       <img src="../sofar.png" height="40px" width="100px">
     </div>
+  </div>
 
-    <script src="./script.js">
-    </script>
+  <script src="./script.js">
+  </script>
 
 </body>
 

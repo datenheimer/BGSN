@@ -1,4 +1,5 @@
 ﻿#Requires AutoHotkey v2.0
+#SingleInstance force
 #Include <WebView2/WebView2>
 #Include <JSON>
 #Include <_JXON>
@@ -34,6 +35,7 @@ wv.add_NavigationCompleted(WebView2.Handler(NavigationCompletedHandler))
 wv.add_WebMessageReceived(WebView2.Handler(WebMessageReceivedEventHandler))
 
 wv.Navigate("file:///" A_ScriptDir "\HTML\mainpage.html")
+wv.OpenDevToolsWindow()
 
 NavigationCompletedHandler(handler, sender, args) {
     for key, macro in MacroMap {
@@ -53,6 +55,8 @@ WebMessageReceivedEventHandler(handler, ICoreWebView2, WebMessageReceivedEventAr
         if (IsObject(macro)) {
             if params.Has("toggle")
                 macro.setState(params.Get("toggle"))
+            if params.Has("count")
+                macro.setCount(params.Get("count"))
 
             if params.Has("customParams") {
                 customParams := params.Get("customParams")
@@ -83,8 +87,6 @@ AddMacroToWebView(macro, params) {
     wv.PostWebMessageAsString(jsonMessage) 
 }
 
-manager.runLoop()
-
 class MacroManager {
     __New() {
         this.macros := []
@@ -96,13 +98,12 @@ class MacroManager {
     }
 
     runLoop() {
-        if this.isRunning
-            return
-        this.isRunning := true
-        while true {
+        this.isRunning := !this.isRunning
+        while this.isRunning {
             for macro in this.macros {
-                if macro.getState()
-                    macro.run()
+                if macro.getState() {
+                    macro.run() 
+                }
             }
         }
     }
@@ -131,3 +132,5 @@ GetModuleClassNames(dirPath) {
     }
     return names
 }
+
+F8::manager.runLoop()

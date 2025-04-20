@@ -23,6 +23,4 @@ Bubbler(i) {
        Click(1280,600)
         Sleep 100
     }
-    }
-    sleep 1000
-    F8::Pause
+}
