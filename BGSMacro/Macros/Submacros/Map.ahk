@@ -8,5 +8,3 @@ Teleporter(world) {
         Sleep 1000
     }
 }
-
-Teleporter(5)
