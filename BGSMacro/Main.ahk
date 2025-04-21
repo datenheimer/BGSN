@@ -7,7 +7,6 @@
 importModules()
 #Include ./loader.ahk
 
-
 IsString(value) {
     return (Type(value) == "string")
 }
@@ -23,13 +22,11 @@ wv := wvc.CoreWebView2
 global MacroMap := Map()
 global manager := MacroManager()
 
-
 for macroFile in GetModuleClassNames(A_ScriptDir "\Modules") {
     instance := %macroFile%()
     MacroMap[instance.getName()] := instance
     manager.addMacro(instance)
 }
-
 
 wv.add_NavigationCompleted(WebView2.Handler(NavigationCompletedHandler))
 wv.add_WebMessageReceived(WebView2.Handler(WebMessageReceivedEventHandler))
@@ -71,15 +68,14 @@ WebMessageReceivedEventHandler(handler, ICoreWebView2, WebMessageReceivedEventAr
     }
 }
 
-
 AddMacroToWebView(macro, params) {
     message := {
         action: "addMacro",
         params: {
-            name: macro.GetName(),       
-            toggle: macro.getState(),    
-            count: macro.getCount(),   
-            customParams: params  
+            name: macro.GetName(), 
+            toggle: macro.getState(), 
+            count: macro.getCount(), 
+            customParams: params 
         }
     }
 
@@ -91,18 +87,30 @@ class MacroManager {
     __New() {
         this.macros := []
         this.isRunning := false
+        this._loopRef := this.runLoop.Bind(this)
     }
 
     addMacro(macro) {
         this.macros.Push(macro)
     }
 
-    runLoop() {
+    toggle() {
         this.isRunning := !this.isRunning
-        while this.isRunning {
-            for macro in this.macros {
-                if macro.getState() {
-                    macro.run() 
+        if this.isRunning {
+            SetTimer this._loopRef, 100
+        } else {
+            SetTimer this._loopRef, 0
+        }
+    }
+
+    runLoop() {
+        for macro in this.macros {
+            if macro.getState() {
+                Loop macro.getCount() {
+                    if !this.isRunning {
+                        break
+                    }
+                    macro.run()
                 }
             }
         }
@@ -133,4 +141,4 @@ GetModuleClassNames(dirPath) {
     return names
 }
 
-F8::manager.runLoop()
+F8::manager.toggle()

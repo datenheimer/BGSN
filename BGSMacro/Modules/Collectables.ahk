@@ -16,11 +16,9 @@ class Collectables {
     run() {
         if !this.state
             return
-        loop this.count {
-            ToolTip "Bubblegum: " this.customParams["flavor"]["value"]
-            Sleep this.customParams["speed"]["value"]
-            ToolTip
-        }
+        ToolTip "Bubblegum: " this.customParams["flavor"]["value"]
+        Sleep this.customParams["speed"]["value"]
+        ToolTip
         
     }
     SetConfig(params) {
